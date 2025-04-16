@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nyasa Creatives Gallery</title>
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      padding: 40px 20px;
+      text-align: center;
+      background-color: #fff;
+    }
+
+    .gallery-title {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: #03055B;
+    }
+
+    /* Fix: Corrected selector syntax for the gallery containers */
+    #w3m, #tutum, #free, #misc, #nyasa {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      max-width: 1100px;
+      margin: 0 auto 30px; /* Added bottom margin between sections */
+    }
+
+    /* Fix: Corrected selector syntax for the images */
+    #w3m img, #tutum img, #free img, #misc img, #nyasa img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      object-fit: cover;
+    }
+
+    /* Fix: Corrected selector syntax for hover effect */
+    #w3m img:hover, #tutum img:hover, #free img:hover, #misc img:hover, #nyasa img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Fix: Added section headings */
+    .section-title {
+      font-size: 1.5rem;
+      margin: 30px 0 15px;
+      color: #03055B;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 80%;
+      margin: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #ffffff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-title {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <h2 class="gallery-title">Our Work</h2>
+    
+    <!-- Added section titles for better organization -->
+    <h3 class="section-title">W3M Projects</h3>
+    <div id="w3m">
+      <img src="gallery/w3m (8).png" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/w3m (5).png" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (21)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (38)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/w3m (6).png" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/w3m (7).png" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/w3m (2)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/w3m (3).png" alt="Gallery Image" onclick="openLightbox(this)">
+    </div>
+    
+    <h3 class="section-title">Tutum Projects</h3>
+    <div id="tutum">
+      <img src="gallery/tutum (1)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (2)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (3)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (4)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (5)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (6)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (8)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (9)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/tutum (7)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+    </div>
+    
+    <h3 class="section-title">Freelance Projects</h3>
+    <div id="free">
+      <img src="gallery/free (1)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (10)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (11)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (12)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (13)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (14)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (15)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (16)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (17)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (18)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (19)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (20)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (21)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (22)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (23)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (2)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (3)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (4)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (5)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (6)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (7)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (8)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/free (9)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <!-- Removed duplicate image -->
+      <img src="gallery/free (21)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+    </div>
+    
+    <h3 class="section-title">Miscellaneous Projects</h3>
+    <div id="misc">
+      <img src="gallery/misc (1)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (2)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (3)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (4).jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <!-- Removed duplicate image -->
+      <img src="gallery/misc (5).jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (6).jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (7)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (8)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (9)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (10)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (11)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (12)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (13)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (14)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (15)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (16)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (17)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (18)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (19)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (20)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (21)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (22)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (23)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (24)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (25)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (26)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (27)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (28)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (29)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (30)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (31)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (32)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (33)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (34)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (35)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (36)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (38)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/misc (39)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+    </div>
+    
+    <h3 class="section-title">Nyasa Creatives Branding</h3>
+    <div id="nyasa">
+      <img src="gallery/nyasa (1)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (2)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (3)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (4)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (5)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (6)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (7)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (8)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (10)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (9)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (11)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (12)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (13)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+      <img src="gallery/nyasa (14)_transcpr.jpg" alt="Gallery Image" onclick="openLightbox(this)">
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+  </div>
+
+  <!-- JS -->
+  <script>
+    function openLightbox(img) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightbox.style.display = 'flex';
+      lightboxImg.src = img.src;
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    // Close lightbox when Escape key is pressed
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

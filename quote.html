@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyasa Creatives- Get a Quote</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Container layout with two cards side by side */
+.containers {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Card styling to match the image */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Card header styling */
+.card-header {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: none;
+}
+
+.card-header h2 {
+    color: #333;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Remove the blue bar before the header */
+.card-header h2::before {
+    display: none;
+}
+
+/* Service selection styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+    padding-right: 30px;
+}
+
+/* Total Summary styling */
+.total-summary {
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.summary-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.summary-header .toggle {
+    cursor: pointer;
+    color: #666;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table th,
+.summary-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.summary-table th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+}
+
+.summary-table td:last-child,
+.summary-table th:last-child {
+    text-align: right;
+}
+
+.total-row {
+    font-weight: 600;
+    text-align: right;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.download-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #00b073;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.download-btn:hover {
+    background-color: #00a067;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="img/logo.png" alt="logo" height="20px">
+            </div>
+
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-buttons">
+                <a href="quote.html" class="btn btn-outline">Get a Quote</a>
+            </div>
+
+            <div class="hamburger">☰</div>
+        </div>
+    </header>
+    <!-- Mobile Menu -->
+    <div class="overlay"></div>
+    <div class="mobile-menu">
+        <div class="close-btn">×</div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+        <a href="quote.html" class="btn btn-primary" class="active">Get a Quote</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>Get a Quote</h1>
+            <p>
+                Let’s bring your vision to life.
+                Fill out the form below with a few details about your project, and our team will get back to you with a tailored quote. Whether you need a full-service solution or a specific service, we’re here to help you every step of the way
+            </p>
+            
+        </div>
+    </section>
+
+    
+    <div class="containers">
+        <!-- Service Selection Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Our Services</h2>
+            </div>
+            
+            <div class="form-group">
+                <label for="serviceDropdown">Select a Service</label>
+                <select id="serviceDropdown" class="form-control" onchange="updateSubservices()">
+                    <option value="">Select value</option>
+                    <option value="brandDesign">Brand Design</option>
+                    <option value="marketingDesign">Marketing & Advertising Design</option>
+                    <option value="packagingDesign">Packaging Design</option>
+                    <option value="webDesign">Web Design</option>
+                    <option value="uiuxDesign">UI/UX Design</option>
+                </select>
+            </div>
+            
+            <!-- Dynamically filled subservices -->
+            <div id="subserviceContainer" class="subservice-container hidden"></div>
+        </div>
+        
+        <!-- Total Summary Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Total Summary</h2>
+            </div>
+            
+            <div class="total-summary">
+                <div class="summary-header">
+                    <h3>Name</h3>
+                    <h3>Total</h3>
+                </div>
+                
+                <table class="summary-table">
+                    <tbody>
+                        <tr>
+                            <td>Graphic Design Services</td>
+                            <td id="totalCost">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="total-row">
+                    MWK 0.00
+                </div>
+            </div>
+            
+            <button class="download-btn">PDF Download</button>
+        </div>
+    </div>
+    
+    <!-- Client Information Form in a separate container -->
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Client Information</h2>
+            </div>
+            <form id="quoteForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company (Optional):</label>
+                    <input type="text" id="company" class="form-control" placeholder="Your Company">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" class="form-control" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Your Phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectDetails">Project Details (Optional):</label>
+                    <textarea id="projectDetails" class="form-control" rows="4" placeholder="Please share any specific requirements or details about your project..."></textarea>
+                </div>
+    
+                <div class="button-group">
+                    <button type="submit" class="button download-btn">Generate & Email Quote</button>
+                    <button type="button" class="button download-btn" style="background-color: #f5f5f5; color: #333;" id="resetBtn" onclick="resetForm()">Reset Quote</button>
+                </div>
+    
+                <div id="successMessage" class="success-message">
+                    Quote has been generated and sent to your email!
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="floating-buttons">
+        <a href="https://wa.me/265880692969" class="floating-button whatsapp" target="_blank" title="Chat with us on WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="mailto:nyasacreatives@gmail.com" class="floating-button email" target="_blank" title="Send us an Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Nyasa Creatives.</h3>
+                <p>Where Creativity Meets Innovation - we design, build and inspire bold brands and experiences</p>
+                <div class="social-links">
+                    <a href="https://web.facebook.com/people/Nyasa-Creatives/100090051422119/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/nyasacreatives/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://mw.linkedin.com/in/nyasa-creatives-17b236302"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="quick-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="portfolio.html"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="quote.html"><i class="fas fa-chevron-right"></i> Get a Quote</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <span>UNIMA, Zomba, Malawi</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-whatsapp"></i>
+                        <span>+265 880 692 969</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-phone"></i>
+                        <span>+265 993 778 615</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        <span>nyasacreatives@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nyasa Creatives. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
