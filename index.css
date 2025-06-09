@@ -972,9 +972,13 @@ header {
 /* Flex Grid */
 .team-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
+  flex-wrap: nowrap;
+  gap: 20px;
   justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  padding: 20px 0;
 }
 
 /* Team Card */
@@ -983,8 +987,8 @@ header {
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 100%;
-  max-width: 300px;
+  width: 280px;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
@@ -997,7 +1001,7 @@ header {
 /* Image */
 .team-img {
   width: 100%;
-  height: auto;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -1030,13 +1034,12 @@ header {
 /* Mobile Friendly */
 @media (max-width: 768px) {
   .team-grid {
-    flex-direction: column;
-    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 10px;
   }
 
   .team-card {
-    width: 100%;
-    max-width: 95%;
+    width: 260px;
   }
 
   .team-info {
@@ -1044,14 +1047,9 @@ header {
   }
 
   .team-desc {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
-
-
-
-
-
 
 /* Story Section */
 .story-container {
@@ -2017,6 +2015,4 @@ header {
     font-size: 24px; /* Adjust icon size for smaller screens */
   }
 }
-
-
-  
+ 

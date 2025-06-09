@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic Design Services</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f7f9fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    max-width: 900px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.services-section, .summary-section {
+    padding: 30px;
+}
+
+.services-section {
+    flex: 1;
+    border-right: 1px solid #eaeaea;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.summary-section {
+    flex: 1;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #222;
+    font-size: 22px;
+}
+
+.select-wrapper {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    appearance: none;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.service-category {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.service-category h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eaeaea;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.service-category h3::after {
+    content: "▼";
+    font-size: 12px;
+    color: #777;
+    transition: transform 0.3s ease;
+}
+
+.service-category.collapsed h3::after {
+    transform: rotate(-90deg);
+}
+
+.service-content {
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+    max-height: 1000px;
+}
+
+.service-category.collapsed .service-content {
+    max-height: 0;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.radio-button {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.radio-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.checkbox-custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.radio-input:checked ~ .radio-custom,
+.checkbox-input:checked ~ .checkbox-custom {
+    border-color: #00c07f;
+}
+
+.radio-custom::after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00c07f;
+}
+
+.checkbox-custom::after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 2px;
+    left: 7px;
+    width: 6px;
+    height: 12px;
+    border: solid #00c07f;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.radio-input:checked ~ .radio-custom::after,
+.checkbox-input:checked ~ .checkbox-custom::after {
+    display: block;
+}
+
+.option-label {
+    font-size: 16px;
+    color: #333;
+    flex-grow: 1;
+}
+
+.option-price {
+    font-size: 16px;
+    color: #555;
+    font-weight: 500;
+}
+
+.range-control {
+    margin-top: 8px;
+    margin-bottom: 20px;
+    padding-left: 34px;
+}
+
+.range-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.range-input {
+    flex-grow: 1;
+}
+
+.range-value {
+    min-width: 60px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.summary-header h2 {
+    margin-bottom: 0;
+}
+
+.toggle-icon {
+    color: #333;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.summary-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.summary-table th, .summary-table td {
+    padding: 12px 5px;
+    text-align: left;
+}
+
+.summary-table th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: 600;
+}
+
+.summary-table td {
+    border-bottom: 1px dashed #ddd;
+}
+
+.summary-table tr.indent td:first-child {
+    padding-left: 20px;
+}
+
+.summary-table .text-right {
+    text-align: right;
+}
+
+.total-row {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 15px 0;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 2px solid #eaeaea;
+}
+
+.download-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #00c07f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #00a66d;
+}
+
+.services-dropdown {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.services-dropdown::after {
+    content: "▼";
+    font-size: 12px;
+    color: #777;
+    transition: transform 0.3s ease;
+}
+
+.services-dropdown.active::after {
+    transform: rotate(180deg);
+}
+
+.services-content {
+    display: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.services-content.active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .services-section {
+        border-right: none;
+        border-bottom: 1px solid #eaeaea;
+        max-height: none;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="services-section">
+            <h2>Graphic Design Services</h2>
+            
+            <div class="services-dropdown">Select Services</div>
+            <div class="services-content">
+                <div class="service-category">
+                    <h3>1. Brand and Identity Design</h3>
+                    <div class="service-content">
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="radio" name="brandIdentity" class="radio-input" value="logoOnly" data-price="75000">
+                                <span class="radio-custom"></span>
+                            </label>
+                            <span class="option-label">Logo only</span>
+                            <span class="option-price">K75,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="radio" name="brandIdentity" class="radio-input" value="logoAndBranding" data-price="175000">
+                                <span class="radio-custom"></span>
+                            </label>
+                            <span class="option-label">Logo design and full branding</span>
+                            <span class="option-price">K175,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="radio" name="brandIdentity" class="radio-input" value="brandingOnly" data-price="100000">
+                                <span class="radio-custom"></span>
+                            </label>
+                            <span class="option-label">Branding only</span>
+                            <span class="option-price">K100,000</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-category">
+                    <h3>2. Marketing and Advertising Design</h3>
+                    <div class="service-content">
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="marketing" class="checkbox-input" value="printingFlyer" data-price="15000">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Printing flyer</span>
+                            <span class="option-price">K15,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="marketing" class="checkbox-input" value="socialMedia" data-price="15000">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Social media design</span>
+                            <span class="option-price">K15,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="marketing" class="checkbox-input" value="posters" data-price="20000">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Posters</span>
+                            <span class="option-price">K20,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="marketing" class="checkbox-input" value="corporatePrintingFlyer" data-price="25000">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Corporate printing flyer</span>
+                            <span class="option-price">K25,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="marketing" class="checkbox-input" value="corporateSocialMedia" data-price="25000">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Corporate social media design</span>
+                            <span class="option-price">K25,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="marketing" class="checkbox-input" value="corporatePoster" data-price="30000">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Corporate poster</span>
+                            <span class="option-price">K30,000</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-category">
+                    <h3>3. Packaging Design</h3>
+                    <div class="service-content">
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="radio" name="packaging" class="radio-input" value="smePackaging" data-price="50000">
+                                <span class="radio-custom"></span>
+                            </label>
+                            <span class="option-label">SME packaging</span>
+                            <span class="option-price">K50,000</span>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="radio" name="packaging" class="radio-input" value="corporatePackaging" data-price="150000">
+                                <span class="radio-custom"></span>
+                            </label>
+                            <span class="option-label">Corporate</span>
+                            <span class="option-price">K150,000</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-category">
+                    <h3>4. Publication Design</h3>
+                    <div class="service-content">
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="publication" class="checkbox-input" value="brochure" data-price="10000" data-per-page="true">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Brochure</span>
+                            <span class="option-price">K10,000 per page</span>
+                        </div>
+                        <div class="range-control" id="brochurePages" style="display: none;">
+                            <div class="range-wrapper">
+                                <input type="range" min="1" max="200" value="1" class="range-input" id="brochurePagesRange">
+                                <span class="range-value">1 page</span>
+                            </div>
+                        </div>
+                        <div class="option-item">
+                            <label class="radio-button">
+                                <input type="checkbox" name="publication" class="checkbox-input" value="companyProfile" data-price="7500" data-per-page="true">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="option-label">Company profile</span>
+                            <span class="option-price">K7,500 per page</span>
+                        </div>
+                        <div class="range-control" id="companyProfilePages" style="display: none;">
+                            <div class="range-wrapper">
+                                <input type="range" min="1" max="200" value="1" class="range-input" id="companyProfilePagesRange">
+                                <span class="range-value">1 page</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="summary-section">
+            <div class="summary-header">
+                <h2>Total Summary</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="summaryTableBody">
+                    <!-- Summary items will be populated by JavaScript -->
+                </tbody>
+            </table>
+            
+            <div class="total-row">
+                <span id="totalAmount">MWK 0.00</span>
+            </div>
+            
+            <button class="download-btn" id="downloadPdf">PDF Download</button>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Toggle dropdown for services
+    const servicesDropdown = document.querySelector('.services-dropdown');
+    const servicesContent = document.querySelector('.services-content');
+    
+    servicesDropdown.addEventListener('click', function() {
+        this.classList.toggle('active');
+        servicesContent.classList.toggle('active');
+    });
+    
+    // Toggle service category sections
+    const categoryHeaders = document.querySelectorAll('.service-category h3');
+    categoryHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const category = this.parentElement;
+            category.classList.toggle('collapsed');
+        });
+    });
+    
+    // Track selected services and calculate totals
+    let selectedServices = {
+        brandIdentity: null,
+        marketing: [],
+        packaging: null,
+        publication: {
+            brochure: {selected: false, pages: 1},
+            companyProfile: {selected: false, pages: 1}
+        }
+    };
+    
+    // Service prices
+    const prices = {
+        brandIdentity: {
+            logoOnly: 75000,
+            logoAndBranding: 175000,
+            brandingOnly: 100000
+        },
+        marketing: {
+            printingFlyer: 15000,
+            socialMedia: 15000,
+            posters: 20000,
+            corporatePrintingFlyer: 25000,
+            corporateSocialMedia: 25000,
+            corporatePoster: 30000
+        },
+        packaging: {
+            smePackaging: 50000,
+            corporatePackaging: 150000
+        },
+        publication: {
+            brochure: 10000, // per page
+            companyProfile: 7500 // per page
+        }
+    };
+    
+    // Service display names
+    const serviceNames = {
+        brandIdentity: {
+            logoOnly: "Logo only",
+            logoAndBranding: "Logo design and full branding",
+            brandingOnly: "Branding only"
+        },
+        marketing: {
+            printingFlyer: "Printing flyer",
+            socialMedia: "Social media design",
+            posters: "Posters",
+            corporatePrintingFlyer: "Corporate printing flyer",
+            corporateSocialMedia: "Corporate social media design",
+            corporatePoster: "Corporate poster"
+        },
+        packaging: {
+            smePackaging: "SME packaging",
+            corporatePackaging: "Corporate packaging"
+        },
+        publication: {
+            brochure: "Brochure",
+            companyProfile: "Company profile"
+        }
+    };
+    
+    // Brand and Identity section
+    const brandIdentityRadios = document.querySelectorAll('input[name="brandIdentity"]');
+    brandIdentityRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            selectedServices.brandIdentity = this.value;
+            updateSummary();
+        });
+    });
+    
+    // Marketing and Advertising section
+    const marketingCheckboxes = document.querySelectorAll('input[name="marketing"]');
+    marketingCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                selectedServices.marketing.push(this.value);
+            } else {
+                selectedServices.marketing = selectedServices.marketing.filter(item => item !== this.value);
+            }
+            updateSummary();
+        });
+    });
+    
+    // Packaging section
+    const packagingRadios = document.querySelectorAll('input[name="packaging"]');
+    packagingRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            selectedServices.packaging = this.value;
+            updateSummary();
+        });
+    });
+    
+    // Publication section
+    const publicationCheckboxes = document.querySelectorAll('input[name="publication"]');
+    const brochurePagesRange = document.getElementById('brochurePagesRange');
+    const companyProfilePagesRange = document.getElementById('companyProfilePagesRange');
+    const brochurePages = document.getElementById('brochurePages');
+    const companyProfilePages = document.getElementById('companyProfilePages');
+    
+    publicationCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const value = this.value;
+            
+            if (value === 'brochure') {
+                selectedServices.publication.brochure.selected = this.checked;
+                brochurePages.style.display = this.checked ? 'block' : 'none';
+            } else if (value === 'companyProfile') {
+                selectedServices.publication.companyProfile.selected = this.checked;
+                companyProfilePages.style.display = this.checked ? 'block' : 'none';
+            }
+            
+            updateSummary();
+        });
+    });
+    
+    brochurePagesRange.addEventListener('input', function() {
+        const pages = parseInt(this.value);
+        selectedServices.publication.brochure.pages = pages;
+        this.nextElementSibling.textContent = pages + (pages === 1 ? ' page' : ' pages');
+        updateSummary();
+    });
+    
+    companyProfilePagesRange.addEventListener('input', function() {
+        const pages = parseInt(this.value);
+        selectedServices.publication.companyProfile.pages = pages;
+        this.nextElementSibling.textContent = pages + (pages === 1 ? ' page' : ' pages');
+        updateSummary();
+    });
+    
+    // Toggle summary section
+    const toggleIcon = document.querySelector('.toggle-icon');
+    const summaryTable = document.querySelector('.summary-table');
+    
+    toggleIcon.addEventListener('click', function() {
+        if (summaryTable.style.display === 'none') {
+            summaryTable.style.display = 'table';
+            toggleIcon.textContent = '▼';
+            toggleIcon.style.transform = 'rotate(0deg)';
+        } else {
+            summaryTable.style.display = 'none';
+            toggleIcon.textContent = '▼';
+            toggleIcon.style.transform = 'rotate(-90deg)';
+        }
+    });
+    
+    // PDF Download button
+    const downloadBtn = document.getElementById('downloadPdf');
+    downloadBtn.addEventListener('click', function() {
+        generatePDF();
+    });
+    
+    function generatePDF() {
+        // In a real implementation, this would generate a PDF with all selected services
+        const selectedServicesData = getSelectedServicesForPDF();
+        
+        // Create a basic PDF structure (this is a simplified version)
+        let pdfContent = `
+            Graphic Design Services Quote
+            Date: ${new Date().toLocaleDateString()}
+            
+            Selected Services:
+            ${formatServicesForPDF(selectedServicesData)}
+            
+            Total: MWK ${formatNumber(calculateTotal())}
+        `;
+        
+        // Here we would use a proper PDF library like jsPDF in a real implementation
+        // For now, we'll simulate the PDF generation
+        alert('Your PDF with the selected services is being generated and will download shortly.');
+        
+        // In a real implementation, we would use the following code to generate and download a PDF:
+        // const blob = new Blob([pdfContent], { type: 'application/pdf' });
+        // const url = URL.createObjectURL(blob);
+        // const a = document.createElement('a');
+        // a.href = url;
+        // a.download = 'graphic_design_quote.pdf';
+        // a.click();
+        // URL.revokeObjectURL(url);
+    }
+    
+    function formatServicesForPDF(services) {
+        return services.map(service => {
+            return `${service.category} - ${service.name}: MWK ${formatNumber(service.price)}`;
+        }).join('\n');
+    }
+    
+    function getSelectedServicesForPDF() {
+        const services = [];
+        
+        // Brand Identity
+        if (selectedServices.brandIdentity) {
+            services.push({
+                category: 'Brand and Identity Design',
+                name: serviceNames.brandIdentity[selectedServices.brandIdentity],
+                price: prices.brandIdentity[selectedServices.brandIdentity]
+            });
+        }
+        
+        // Marketing
+        if (selectedServices.marketing.length > 0) {
+            selectedServices.marketing.forEach(item => {
+                services.push({
+                    category: 'Marketing and Advertising Design',
+                    name: serviceNames.marketing[item],
+                    price: prices.marketing[item]
+                });
+            });
+        }
+        
+        // Packaging
+        if (selectedServices.packaging) {
+            services.push({
+                category: 'Packaging Design',
+                name: serviceNames.packaging[selectedServices.packaging],
+                price: prices.packaging[selectedServices.packaging]
+            });
+        }
+        
+        // Publication
+        if (selectedServices.publication.brochure.selected) {
+            const pages = selectedServices.publication.brochure.pages;
+            services.push({
+                category: 'Publication Design',
+                name: `${serviceNames.publication.brochure} (${pages} page${pages > 1 ? 's' : ''})`,
+                price: prices.publication.brochure * pages
+            });
+        }
+        
+        if (selectedServices.publication.companyProfile.selected) {
+            const pages = selectedServices.publication.companyProfile.pages;
+            services.push({
+                category: 'Publication Design',
+                name: `${serviceNames.publication.companyProfile} (${pages} page${pages > 1 ? 's' : ''})`,
+                price: prices.publication.companyProfile * pages
+            });
+        }
+        
+        return services;
+    }
+    
+    // Update summary table and total
+    function updateSummary() {
+        const summaryTableBody = document.getElementById('summaryTableBody');
+        const totalAmount = document.getElementById('totalAmount');
+        
+        // Clear current summary
+        summaryTableBody.innerHTML = '';
+        
+        // Brand Identity
+        if (selectedServices.brandIdentity) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>Brand and Identity Design</td>
+                <td class="text-right">${formatPrice(0)}</td>
+            `;
+            summaryTableBody.appendChild(row);
+            
+            const subRow = document.createElement('tr');
+            subRow.className = 'indent';
+            subRow.innerHTML = `
+                <td>${serviceNames.brandIdentity[selectedServices.brandIdentity]}</td>
+                <td class="text-right">${formatPrice(prices.brandIdentity[selectedServices.brandIdentity])}</td>
+            `;
+            summaryTableBody.appendChild(subRow);
+        }
+        
+        // Marketing
+        if (selectedServices.marketing.length > 0) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>Marketing and Advertising Design</td>
+                <td class="text-right">${formatPrice(0)}</td>
+            `;
+            summaryTableBody.appendChild(row);
+            
+            selectedServices.marketing.forEach(item => {
+                const subRow = document.createElement('tr');
+                subRow.className = 'indent';
+                subRow.innerHTML = `
+                    <td>${serviceNames.marketing[item]}</td>
+                    <td class="text-right">${formatPrice(prices.marketing[item])}</td>
+                `;
+                summaryTableBody.appendChild(subRow);
+            });
+        }
+        
+        // Packaging
+        if (selectedServices.packaging) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>Packaging Design</td>
+                <td class="text-right">${formatPrice(0)}</td>
+            `;
+            summaryTableBody.appendChild(row);
+            
+            const subRow = document.createElement('tr');
+            subRow.className = 'indent';
+            subRow.innerHTML = `
+                <td>${serviceNames.packaging[selectedServices.packaging]}</td>
+                <td class="text-right">${formatPrice(prices.packaging[selectedServices.packaging])}</td>
+            `;
+            summaryTableBody.appendChild(subRow);
+        }
+        
+        // Publication
+        let hasPublicationServices = selectedServices.publication.brochure.selected || 
+                                  selectedServices.publication.companyProfile.selected;
+        if (hasPublicationServices) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>Publication Design</td>
+                <td class="text-right">${formatPrice(0)}</td>
+            `;
+            summaryTableBody.appendChild(row);
+            
+            if (selectedServices.publication.brochure.selected) {
+                const pages = selectedServices.publication.brochure.pages;
+                const subRow = document.createElement('tr');
+                subRow.className = 'indent';
+                subRow.innerHTML = `
+                    <td>${serviceNames.publication.brochure} (${pages} page${pages > 1 ? 's' : ''})</td>
+                    <td class="text-right">${formatPrice(prices.publication.brochure * pages)}</td>
+                `;
+                summaryTableBody.appendChild(subRow);
+            }
+            
+            if (selectedServices.publication.companyProfile.selected) {
+                const pages = selectedServices.publication.companyProfile.pages;
+                const subRow = document.createElement('tr');
+                subRow.className = 'indent';
+                subRow.innerHTML = `
+                    <td>${serviceNames.publication.companyProfile} (${pages} page${pages > 1 ? 's' : ''})</td>
+                    <td class="text-right">${formatPrice(prices.publication.companyProfile * pages)}</td>
+                `;
+                summaryTableBody.appendChild(subRow);
+            }
+        }
+        
+        // Total
+        const total = calculateTotal();
+        totalAmount.textContent = formatPrice(total);
+        
+        // Update download button visibility
+        const downloadBtn = document.getElementById('downloadPdf');
+        downloadBtn.style.display = total > 0 ? 'block' : 'none';
+    }
+    
+    // Calculate total price
+    function calculateTotal() {
+        let total = 0;
+        
+        // Brand Identity
+        if (selectedServices.brandIdentity) {
+            total += prices.brandIdentity[selectedServices.brandIdentity];
+        }
+        
+        // Marketing
+        if (selectedServices.marketing.length > 0) {
+            selectedServices.marketing.forEach(item => {
+                total += prices.marketing[item];
+            });
+        }
+        
+        // Packaging
+        if (selectedServices.packaging) {
+            total += prices.packaging[selectedServices.packaging];
+        }
+        
+        // Publication
+        if (selectedServices.publication.brochure.selected) {
+            total += prices.publication.brochure * selectedServices.publication.brochure.pages;
+        }
+        
+        if (selectedServices.publication.companyProfile.selected) {
+            total += prices.publication.companyProfile * selectedServices.publication.companyProfile.pages;
+        }
+        
+        return total;
+    }
+    
+    // Format price with thousand separators and currency
+    function formatPrice(price) {
+        return 'MWK ' + formatNumber(price);
+    }
+    
+    // Format number with thousand separators
+    function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+    // Initialize the summary section
+    updateSummary();
+});
+    </script>
+</body>
+</html>

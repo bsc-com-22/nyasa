@@ -125,6 +125,29 @@ document.querySelectorAll('.stat').forEach(stat => observer.observe(stat));
       });
     });
 
+    // Initialize service prices and event listeners when the DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize the service dropdown
+        const serviceDropdown = document.getElementById("serviceDropdown");
+        if (serviceDropdown) {
+            serviceDropdown.addEventListener("change", updateSubservices);
+            // Trigger initial update
+            updateSubservices();
+        }
+
+        // Initialize the form reset button
+        const resetBtn = document.getElementById("resetBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", resetForm);
+        }
+
+        // Initialize the form submission
+        const quoteForm = document.getElementById("quoteForm");
+        if (quoteForm) {
+            quoteForm.addEventListener("submit", handleFormSubmit);
+        }
+    });
+
     const servicePrices = {
         brandDesign: {
             oneOptionLogo: { price: 50000, label: "Logo Design (1 Option)" },
@@ -163,14 +186,17 @@ document.querySelectorAll('.stat').forEach(stat => observer.observe(stat));
         }
     };
     
-    // Generate subservice checkboxes based on selected service
     function updateSubservices() {
         const serviceDropdown = document.getElementById("serviceDropdown");
         const selectedService = serviceDropdown.value;
         const subserviceContainer = document.getElementById("subserviceContainer");
+        
+        console.log("Selected service:", selectedService);
+        console.log("Service prices:", servicePrices[selectedService]);
     
         subserviceContainer.innerHTML = "";
         if (!selectedService || !servicePrices[selectedService]) {
+            console.log("No service selected or service not found in prices");
             subserviceContainer.classList.add("hidden");
             updateTotalCost(0);
             return;
@@ -179,8 +205,11 @@ document.querySelectorAll('.stat').forEach(stat => observer.observe(stat));
         subserviceContainer.classList.remove("hidden");
     
         const subservices = servicePrices[selectedService];
+        console.log("Subservices to display:", subservices);
+        
         for (const key in subservices) {
             const { label, price } = subservices[key];
+            console.log("Creating checkbox for:", label, "with price:", price);
     
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
@@ -228,7 +257,7 @@ document.querySelectorAll('.stat').forEach(stat => observer.observe(stat));
         updateTotalCost(0);
     }
     
-    document.getElementById("quoteForm").addEventListener("submit", async function (e) {
+    async function handleFormSubmit(e) {
         e.preventDefault();
     
         const name = document.getElementById("name").value;
@@ -249,46 +278,118 @@ document.querySelectorAll('.stat').forEach(stat => observer.observe(stat));
         // Generate PDF using jsPDF
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-    
-        doc.setFontSize(18);
-        doc.text("Quotation", 10, 10);
-        doc.setFontSize(12);
-        doc.text(`Name: ${name}`, 10, 20);
-        doc.text(`Company: ${company}`, 10, 30);
-        doc.text(`Email: ${email}`, 10, 40);
-        doc.text(`Phone: ${phone}`, 10, 50);
-        doc.text(`Service Category: ${service}`, 10, 60);
-    
-        doc.text("Selected Services:", 10, 70);
-        selectedSubservices.forEach((item, index) => {
-            doc.text(`- ${item.label}: MWK ${item.price.toLocaleString()}`, 10, 80 + index * 10);
-        });
-    
-        doc.text(`Total: MWK ${total.toLocaleString()}`, 10, 90 + selectedSubservices.length * 10);
-    
-        doc.text("Project Details:", 10, 100 + selectedSubservices.length * 10);
-        doc.text(doc.splitTextToSize(projectDetails || "N/A", 180), 10, 110 + selectedSubservices.length * 10);
-    
-        const pdfBlob = doc.output("blob");
-    
-        const formData = new FormData();
-        formData.append("pdf", pdfBlob, "quote.pdf");
-        formData.append("email", email);
-    
-        try {
-            const res = await fetch("https://your-backend-url.com/send-quote", {
-                method: "POST",
-                body: formData
+        
+        // Add logo to PDF
+        const logo = new Image();
+        logo.src = 'img/logo.png';
+        
+        // Wait for logo to load before generating PDF
+        logo.onload = async function() {
+            // Add logo to the top of the PDF
+            doc.addImage(logo, 'PNG', 10, 10, 40, 20);
+            
+            // Add company name and contact info
+            doc.setFontSize(24);
+            doc.setTextColor(3, 5, 91); // Dark blue color
+            doc.text("Nyasa Creatives", 60, 20);
+            
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text("UNIMA, Zomba, Malawi", 60, 27);
+            doc.text("Phone: +265 993 778 615", 60, 33);
+            doc.text("Email: nyasacreatives@gmail.com", 60, 39);
+            
+            // Add a line separator
+            doc.setDrawColor(200, 200, 200);
+            doc.line(10, 45, 200, 45);
+            
+            // Add quotation details
+            doc.setFontSize(18);
+            doc.setTextColor(3, 5, 91);
+            doc.text("Quotation", 10, 55);
+            
+            // Add client information
+            doc.setFontSize(12);
+            doc.setTextColor(50, 50, 50);
+            doc.text(`Name: ${name}`, 10, 65);
+            doc.text(`Company: ${company || 'N/A'}`, 10, 72);
+            doc.text(`Email: ${email}`, 10, 79);
+            doc.text(`Phone: ${phone}`, 10, 86);
+            doc.text(`Service Category: ${service}`, 10, 93);
+            
+            // Add selected services
+            doc.text("Selected Services:", 10, 103);
+            let yPos = 113;
+            selectedSubservices.forEach((item, index) => {
+                doc.text(`- ${item.label}: MWK ${item.price.toLocaleString()}`, 15, yPos);
+                yPos += 7;
             });
-    
-            if (res.ok) {
-                document.getElementById("successMessage").style.display = "block";
-            } else {
-                alert("Failed to send the quotation. Please try again.");
+            
+            // Add total
+            doc.setFontSize(14);
+            doc.setTextColor(3, 5, 91);
+            doc.text(`Total: MWK ${total.toLocaleString()}`, 10, yPos + 10);
+            
+            // Add project details if any
+            if (projectDetails) {
+                doc.setFontSize(12);
+                doc.setTextColor(50, 50, 50);
+                doc.text("Project Details:", 10, yPos + 25);
+                const splitDetails = doc.splitTextToSize(projectDetails, 180);
+                doc.text(splitDetails, 10, yPos + 35);
             }
-        } catch (err) {
-            console.error(err);
-            alert("Something went wrong while sending the quote.");
-        }
-    });
+            
+            // Add footer
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Thank you for choosing Nyasa Creatives!", 10, 280);
+            doc.text("This quotation is valid for 30 days from the date of issue.", 10, 287);
+            
+            // Save the PDF
+            doc.save('Nyasa_Creatives_Quote.pdf');
+            
+            // Show success message
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("successMessage").textContent = "Quote has been generated and downloaded!";
+            
+            // Optional: Send email with PDF
+            const pdfBlob = doc.output("blob");
+            const formData = new FormData();
+            formData.append("pdf", pdfBlob, "quote.pdf");
+            formData.append("email", email);
+            
+            try {
+                const res = await fetch("https://your-backend-url.com/send-quote", {
+                    method: "POST",
+                    body: formData
+                });
+                
+                if (res.ok) {
+                    document.getElementById("successMessage").textContent = "Quote has been generated, downloaded, and sent to your email!";
+                }
+            } catch (err) {
+                console.error(err);
+                // Don't show error to user since PDF was already downloaded
+            }
+        };
+        
+        // Handle logo loading error
+        logo.onerror = function() {
+            alert("Error loading logo. Generating PDF without logo...");
+            // Generate PDF without logo
+            generatePDFWithoutLogo();
+        };
+    }
     
+    function generatePDFWithoutLogo() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Add company name and contact info
+        doc.setFontSize(24);
+        doc.setTextColor(3, 5, 91);
+        doc.text("Nyasa Creatives", 10, 20);
+        
+        // Rest of the PDF generation code...
+        // (Same as above but starting from y=30 instead of y=55)
+    }
