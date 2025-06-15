@@ -79,9 +79,36 @@
       </section>
       
         <div class="map-container">
-            <!-- Replace with your Google Maps embed code -->
-            <iframe src="https://maps.app.goo.gl/QeA92LKdfq5mc2jQ9" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <!-- Google Maps embed code -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.734044670167!2d35.33467057437709!3d-15.389230613107555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18d904e65366a83f%3A0xf1f319d6a0c14cf9!2sUniversity%20of%20Malawi!5e1!3m2!1sen!2smw!4v1749988927885!5m2!1sen!2smw" style="border:0; width: 100%; height: 450px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
+
+        <style>
+            .map-container {
+                width: 100%;
+                max-width: 1200px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+            
+            .map-container iframe {
+                transition: transform 0.3s ease;
+            }
+            
+            .map-container iframe:hover {
+                transform: scale(1.01);
+            }
+            
+            @media (max-width: 768px) {
+                .map-container {
+                    padding: 0 15px;
+                }
+                
+                .map-container iframe {
+                    height: 350px;
+                }
+            }
+        </style>
 
     <footer class="footer">
         <div class="footer-container">
